@@ -4,14 +4,20 @@ const maxHeightOfImage = 200;
 window.onload = function(){
 
     var currentPostState = {};
+    var currentPostID = 0;
+
+    var setNumFilesAndSizeText = function (){
+        var numFilesText = document.getElementById('numFiles');
+        var newFileCount = currentPostState.attachedImages.length;
+        numFilesText.innerHTML = newFileCount == 1 ?  newFileCount + " File Attached" : newFileCount+ " Files Attached";
+    }
+
     var clearSelection = function(){
         currentPostState = {
-            numFiles:0,
             attachedImages:[],
             imageID:0,
-            currentPostID:0
         };
-
+        setNumFilesAndSizeText();
         var node = document.getElementById('placeToShowFiles')
         while (node.hasChildNodes()) {
             node.removeChild(node.lastChild);
@@ -27,6 +33,15 @@ window.onload = function(){
     
     var turnOnDragDrop = function(){   
         clearSelection();
+        (function(){
+            var image = document.createElement('img'); 
+            image.src = "images/Welcome.jpg";
+            image.style.width = "250px"; image.style.height = "100.4475px";
+            document.getElementById('placeToShowFiles').appendChild(image);
+        })();
+        currentPostState.attachedImages.push("images/Welcome.jpg");
+        setNumFilesAndSizeText();
+        
         var FileDragHover = function(e){
             // cancel event and hover styling
             e.stopPropagation();
@@ -35,13 +50,7 @@ window.onload = function(){
             e.target.className = (e.type == "dragover" ? "hover" : "");
         }
         var FileSelectHandler = function(e) {
-            var setNumFilesAndSizeText = function (){
-                var numFilesText = document.getElementById('numFiles');
-                var newFileCount = currentPostState.numFiles;
-                numFilesText.innerHTML = newFileCount == 1 ?  newFileCount + " File Attached" : newFileCount+ " Files Attached";
-            }
             var addNewImage = function(ev2){
-                currentPostState.attachedImages.push(newImage);
                 var appendParent = document.getElementById('placeToShowFiles');
                 var newImage = document.createElement('img');
                 newImage.id = currentPostState.imageID;
@@ -58,6 +67,7 @@ window.onload = function(){
                 fr.onload = function(ev2) {
                     console.dir(ev2);
                     currentPostState.attachedImages.push(ev2.target.result);
+                    setNumFilesAndSizeText();
                     addNewImage(ev2);                  
                 };   
                 fr.readAsDataURL(file);
@@ -68,9 +78,8 @@ window.onload = function(){
             // process all File objects
             for (var i = 0, f; f = files[i]; i++) {
                 parser(f,e);
-                currentPostState.numFiles++;
             }
-            setNumFilesAndSizeText(currentPostState.numFiles);
+            setNumFilesAndSizeText();
         }   
         if (window.File && window.FileList && window.FileReader) {
             var fileselect = document.getElementById('fileselect'),
@@ -101,9 +110,13 @@ window.onload = function(){
             return container;
         }
 
-        var elementToAppendTo = 
+        var elementToAppendToID = currentPostID == 0 ? '#initialPost' :"#post" + currentPostID.toString();
+        currentPostID++;
+
         var parentElement = document.createElement('div');
-        parentElement.id = "post" + currentPostState.currentPostID;
+        parentElement.style.display="none";
+        var parentElementID = "#post" + currentPostID.toString();
+        parentElement.id = "post" + currentPostID.toString();
         parentElement.className = "design-container design-card-2 design-white design-round design-margin";
         addLineBreak(parentElement);
 
@@ -122,14 +135,29 @@ window.onload = function(){
 
         var innerParentElement = document.createElement('div'); innerParentElement.className="design-row-padding";
         innerParentElement.style.margin="0 -16px";
+        for(var i=0; i<currentPostState.attachedImages.length; i++){
+            if(currentPostState.attachedImages[i] != undefined){
+                innerParentElement.appendChild(createImageEntry(currentPostState.attachedImages[i]));
+            }
+        }
+        parentElement.appendChild(innerParentElement);      
+        var likeButton = document.createElement('button'); 
+        likeButton.className = "design-btn design-theme-d1 design-margin-bottom";
+        likeButton.innerHTML = "<i class='fa fa-thumbs-up'></i> Like";
+        parentElement.appendChild(likeButton);
 
-       
+        var commentButton = document.createElement('button'); 
+        commentButton.className = "design-btn design-theme-d1 design-margin-bottom";
+        commentButton.innerHTML = "<i class='fa fa-comment'></i>  Comment";
+        commentButton.style.marginLeft = "4px";
+        parentElement.appendChild(commentButton);
 
+        //Append it all at the end to minimize DOM exposure
+        document.getElementById('dummy').appendChild(parentElement);
 
-
-
-        
-    }
+        $(parentElementID).insertBefore(elementToAppendToID);
+        $(parentElementID).fadeIn(1000).css('display','block');
+    }   
 
     $('#clear').click(function(){
         clearSelection();
@@ -139,5 +167,7 @@ window.onload = function(){
         makeNewPost();
         clearSelection();
     });
+
+
         
 }})();

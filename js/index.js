@@ -1,4 +1,5 @@
 (function() {
+    alert("BS");
 const maxWidthOfImage = 200;
 const maxHeightOfImage = 200;
 window.onload = function(){
@@ -29,7 +30,6 @@ window.onload = function(){
         changePage('#HomePage',function(){
             $('#HomePage').fadeIn(1000).css('display','block');
         });
-        alert("BS");
     });
 
     $('#travelButton').click(function(){

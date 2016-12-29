@@ -204,6 +204,8 @@ window.onload = function(){
 
         $(parentElementID).insertBefore(elementToAppendToID);
         $(parentElementID).fadeIn(1000).css('display','block');
+        alert("Running this");
+
     }   
 
     document.getElementById("initialMapTop").innerHTML = "Places I've Visited! Hover Over For Lists of Cities!";
@@ -217,7 +219,6 @@ window.onload = function(){
         currentPageID = id;
     }
 
-    alert("Running this");
 
     changePageForce('#HobbiesTravel',function(){
             $('#HobbiesTravel').css('display','block');

@@ -3,6 +3,54 @@ const maxWidthOfImage = 200;
 const maxHeightOfImage = 200;
 window.onload = function(){
 
+    var currentPageID = "#HomePage";
+
+    var changePage = function(id,callback){
+        $(currentPageID).fadeOut(1000);
+        $(currentPageID).promise().done(function(){
+            if(callback)
+                callback();
+        }); 
+        currentPageID = id;
+    }
+
+    $('#clear').click(function(){
+        clearSelection();
+        document.getElementById("postText").value = "";
+    });
+
+    $('#post').click(function() {
+        makeNewPost();
+        clearSelection();
+        document.getElementById("postText").value = "";
+    });
+
+    //All of the NavBar Click Button stuff
+    $('#homeButton').click(function(){
+        changePage('#HomePage',function(){
+            $('#HomePage').fadeIn(1000).css('display','block');
+        });
+    });
+
+    $('#travelButton').click(function(){
+        changePage('#HobbiesTravel',function(){
+            $('#HobbiesTravel').fadeIn(1000).css('display','block');
+            $('#HobbiesTravel').fadeIn(1000).css('visibility','visible');
+        });
+    });
+
+    $('#projectButton').click(function(){
+        changePage('#PersonalProjects',function(){
+            $('#PersonalProjects').fadeIn(1000).css('display','block');
+        });
+    });
+
+    $('#contactButton').click(function(){
+        changePage('#ContactMe',function(){
+            $('#ContactMe').fadeIn(1000).css('display','block');
+        });
+    });
+
     var currentPostState = {};
     var currentPostID = 0;
 
@@ -158,10 +206,10 @@ window.onload = function(){
         $(parentElementID).fadeIn(1000).css('display','block');
     }   
 
-    var currentPageID = "#HomePage";
+    document.getElementById("initialMapTop").innerHTML = "Places I've Visited! Hover Over For Lists of Cities!";
 
-    var changePage = function(id,callback){
-        $(currentPageID).fadeOut(1000);
+    var changePageForce = function(id,callback){
+        $(currentPageID).fadeOut(0);
         $(currentPageID).promise().done(function(){
             if(callback)
                 callback();
@@ -169,40 +217,13 @@ window.onload = function(){
         currentPageID = id;
     }
 
-    $('#clear').click(function(){
-        clearSelection();
-        document.getElementById("postText").value = "";
-    });
-
-    $('#post').click(function() {
-        makeNewPost();
-        clearSelection();
-        document.getElementById("postText").value = "";
-    });
-
-    //All of the NavBar Click Button stuff
-    $('#homeButton').click(function(){
-        changePage('#HomePage',function(){
-            $('#HomePage').fadeIn(1000).css('display','block');
-        });
-    });
-
-    $('#travelButton').click(function(){
-        changePage('#HobbiesTravel',function(){
+    changePageForce('#HobbiesTravel',function(){
+            $('#HobbiesTravel').css('display','block');
             $('#HobbiesTravel').fadeIn(1000).css('visibility','visible');
         });
-    });
 
-    $('#projectButton').click(function(){
-        changePage('#PersonalProjects',function(){
-            $('#PersonalProjects').fadeIn(1000).css('display','block');
-        });
-    });
-
-    $('#contactButton').click(function(){
-        changePage('#ContactMe',function(){
-            $('#ContactMe').fadeIn(1000).css('display','block');
-        });
+    changePageForce('#HomePage',function(){
+            $('#HomePage').css('display','block');
     });
 
 

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-<title>Brian Zhou Site</title>
+<title>Brian Zhou</title>
+<link rel="shortcut icon" href="images/ProfilePicture.jpg"/>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="css/styles.css">
@@ -13,6 +14,12 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 
+<!-- Map Stuff -->
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="../../PersonalSite/brianlizhou.github.io/js/map.js"></script>
+
+
 <body class="design-theme-l5">
 
 <!-- Navbar -->
@@ -21,16 +28,16 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
   <li class="design-hide-medium design-hide-large design-opennav design-right">
     <a class="design-padding-large design-hover-white design-large design-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
   </li>
-  <li><a href="#" class="design-padding-large design-theme-d4"><i class="fa fa-home design-margin-right"></i>Home</a></li>
-  <li class="design-hide-small"><a href="#" class="design-padding-large design-hover-white" title="News"><i class="fa fa-globe"></i> Hobbies & Travel</a></li>
-  <li class="design-hide-small"><a href="#" class="design-padding-large design-hover-white" title="Account Settings"><i class="fa fa-user"></i> Personal Projects</a></li>
+  <li id="homeButton"><a href="#" class="design-padding-large design-theme-d4"><i class="fa fa-home design-margin-right"></i>Home</a></li>
+  <li id="travelButton" class="design-hide-small"><a href="#" class="design-padding-large design-hover-white" title="News"><i class="fa fa-globe"></i> Travel & Hobbies</a></li>
+  <li id="projectButton" class="design-hide-small"><a href="#" class="design-padding-large design-hover-white" title="Account Settings"><i class="fa fa-user"></i> Personal Projects</a></li>
   <li class="design-hide-small"><a href="#" class="design-padding-large design-hover-white" title="Messages"><i class="fa fa-envelope"></i> Contact Me!</a></li>
   <li class="design-hide-small design-dropdown-hover">
     <a href="#" class="design-padding-large design-hover-white" title="Notifications"><i class="fa fa-bell"></i><span class="design-badge design-right design-small design-green">3</span></a>     
     <div class="design-dropdown-content design-white design-card-4">
       <a href="#">One new friend request</a>
       <a href="#">Brian Zhou posted on your wall</a>
-      <a href="#">Linda likes your post</a>
+      <a href="#">Brian Zhou made a new update</a>
     </div>
   </li>
   <li class="design-hide-small design-right"><a href="#" class="design-padding-large design-hover-white" title="My Account"><img src="http://www.w3schools.com/w3images/avatar2.png" class="design-circle" style="height:25px;width:25px" alt="Avatar"></a></li>
@@ -142,12 +149,13 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
     <!-- Middle Column -->
     <div class="design-col m7">
     
+    <div id="HomePage">
       <div class="design-row-padding">
         <div class="design-col m12">
           <div class="design-card-2 design-round design-white">
             <div class="design-container design-padding">
               <h6 class="design-opacity">Make a New Post</h6>
-              <input id="postText" contenteditable="true" class="design-border design-padding" placeholder="Try posting something!" style="width:100%"></input>
+              <input id="postText" contenteditable="true" class="design-border design-padding" placeholder="Try posting something!" style="width:100%" value="Welcome to my site!"></input>
               <button type="button" id="post" class="design-btn design-theme post-button"><i class="fa fa-pencil"></i>  Post</button> 
               <button type="button" id="clear" class="design-btn design-theme post-button"><i class="fa fa-window-close-o"></i>  Clear</button> 
               <button id="numFiles" class="design-btn design-theme post-button"> 0 Files Attached</button> 
@@ -188,122 +196,259 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
         <p>Thanks for stopping by and visiting my site! I keep a catalog of all my travel spots and of my big projects here. <br> If you have time, take a look around using the tabs at the top. <br>I just got the wall working so if you have time, try making a post on the wall!</p>
           <div class="design-row-padding" style="margin:0 -16px">
             <div class="design-half">
-              <img src="http://www.w3schools.com/w3images/lights.jpg" style="width:100%" alt="Northern Lights" class="design-margin-bottom">
+              <img src="images/Languages.jpg" style="width:100%" alt="Northern Lights" class="design-margin-bottom">
             </div>
             <div class="design-half">
-              <img src="http://www.w3schools.com/w3images/nature.jpg" style="width:100%" alt="Nature" class="design-margin-bottom">
+              <img src="images/WebHome.jpg" style="width:100%" alt="Nature" class="design-margin-bottom">
           </div>
         </div>
         <button type="button" class="design-btn design-theme-d1 design-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
         <button type="button" class="design-btn design-theme-d2 design-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
     </div>    
+
+
+    </div>
+    <!-- End Home-->
+
+    <!-- Begin Hobbies & Travel -->
+    <div id="HobbiesTravel" style="display:block;margin-top:-15px;visibility:hidden">
+         <div class="design-container design-card-2 design-white design-round design-margin"><br>
+            <p style="text-align:center;margin-top:-10px;font-size:20px;"> Places I've Visited! Hover Over For Lists of Cities! </p>
+            <div id="map" class = "fade" style="display:block;position: relative; width: 100%; max-height: 500px;background-color:skyblue"></div>
+            <div style="height:20px"></div>
+        </div>   
+
+        <!-- Golf -->
+         <div class="design-container design-card-2 design-white design-round design-margin"><br>
+            <img src="images/Golf/Logo.jpg" alt="Avatar" class="design-left design-margin-right" style="width:50px">
+            <h4>Golf</h4>
+            <hr class="design-clear">
+                <p>I've played golf for about 10 years now; I used to play a ton and was the captain of my high school team, but I haven't been able to play as much as I've wanted to lately. <br> If you're interested in playing golf and are around Duke, contact me and we can play a round!
+            <div class="slideshow-container" style="margin-left:auto;margin-right:auto;">
+              <div class="mySlidesGolf fade" style="margin-left:auto;margin-right:auto;">
+                <div class="numbertext">1 / 4</div>
+                <div class="numbertext">Newspaper Clipping of Me Putting</div>
+                <img src="images/Golf/NewspaperClip.jpg" class="projectImage">
+                
+              </div>
+
+              <div class="mySlidesGolf fade">
+                <div class="numbertext">2 / 4</div>
+                <div class="numbertext">Tee Shot</div>
+                <img src="images/Golf/Swing.jpg" class="projectImage">
+                
+              </div>
+
+              <div class="mySlidesGolf fade">
+                <div class="numbertext">3 / 4</div>
+                <div class="numbertext">Waiting Around</div>
+                <img src="images/Golf/WalkingAround.jpg" class="projectImage">
+              </div>
+
+               <div class="mySlidesGolf fade">
+                <div class="numbertext">4 / 4</div>
+                <div class="numbertext">State Championship Trophy</div>
+                <img src="images/Golf/States.jpg" class="landscapeImage">
+              </div>
+
+              <a class="prev" onclick="plusSlides(-1,'Golf')" style="color:white">&#10094;</a>
+              <a class="next" onclick="plusSlides(1,'Golf')" style="color:white">&#10095;</a>
+            </div>
+            <br>
+
+            <div style="text-align:center">
+              <span class="dotGolf" onclick="currentSlide(1,'Golf')"></span> 
+              <span class="dotGolf" onclick="currentSlide(2,'Golf')"></span> 
+              <span class="dotGolf" onclick="currentSlide(3,'Golf')"></span> 
+              <span class="dotGolf" onclick="currentSlide(4,'Golf')"></span> 
+            </div>
+        </div>      
+
+        <!-- Drawing -->
+        <div class="design-container design-card-2 design-white design-round design-margin"><br>
+            <img src="images/Art/Logo.jpeg" alt="Avatar" class="design-left design-margin-right" style="width:50px">
+            <h4>Art</h4>
+            <hr class="design-clear">
+                <p>I enjoy drawing in my free time! I normally do sketches, and I've attached a few images of my drawings over the years. <br> I also draw most of the artwork for my games, so for some of my personal projects I've drawn small character/projectile sprites (See balloons/water guns in my Java game).
+            <div class="slideshow-container" style="margin-left:auto;margin-right:auto;">
+              <div class="mySlidesArt fade">
+                <div class="numbertext">1 / 8</div>
+                <div class="numbertext">Water Sketch</div>
+                <img src="images/Art/Water.jpg" class="landscapeImage"> 
+              </div>
+
+              <div class="mySlidesArt fade">
+                <div class="numbertext">2 / 8</div>
+                <div class="numbertext">Batman Sketch</div>
+                <img src="images/Art/Batman.jpg" class="landscapeImage"> 
+              </div>
+
+              <div class="mySlidesArt fade">
+                <div class="numbertext">3 / 8</div>
+                <div class="numbertext">Superman Sketch</div>
+                <img src="images/Art/Superman.jpg" class="landscapeImage"> 
+              </div>
+
+              <div class="mySlidesArt fade">
+                <div class="numbertext">4 / 8</div>
+                <div class="numbertext">ClipArt Trash Sketch</div>
+                <img src="images/Art/Trash.jpg" class="landscapeImage"> 
+              </div>
+
+              <div class="mySlidesArt fade">
+                <div class="numbertext">5 / 8</div>
+                <div class="numbertext">Chibi Pikachu Sketch</div>
+                <img src="images/Art/Pikachu.jpg" class="landscapeImage"> 
+              </div>
+
+              <div class="mySlidesArt fade">
+                <div class="numbertext">6 / 8</div>
+                <div class="numbertext">Food Sketch</div>
+                <img src="images/Art/Food.jpg" class="landscapeImage rotate"> 
+              </div>
+
+              <div class="mySlidesArt fade">
+                <div class="numbertext">7 / 8</div>
+                <div class="numbertext">Shower Sketch</div>
+                <img src="images/Art/Shower.jpg" class="landscapeImage"> 
+              </div>
+
+              <div class="mySlidesArt fade" style="margin-left:auto;margin-right:auto;">
+                <div class="numbertext">8 / 8</div>
+                <div class="numbertext">Room Sketch</div>
+                <img src="images/Art/Room.jpg" class="landscapeImage">
+              </div>
+             
+
+
+              <a class="prev" onclick="plusSlides(-1,'Art')" style="color:white">&#10094;</a>
+              <a class="next" onclick="plusSlides(1,'Art')" style="color:white">&#10095;</a>
+            </div>
+            <br>
+
+            <div style="text-align:center">
+              <span class="dotArt" onclick="currentSlide(1,'Art')"></span> 
+              <span class="dotArt" onclick="currentSlide(2,'Art')"></span> 
+              <span class="dotArt" onclick="currentSlide(3,'Art')"></span> 
+              <span class="dotArt" onclick="currentSlide(4,'Art')"></span> 
+              <span class="dotArt" onclick="currentSlide(5,'Art')"></span> 
+              <span class="dotArt" onclick="currentSlide(6,'Art')"></span> 
+              <span class="dotArt" onclick="currentSlide(7,'Art')"></span> 
+              <span class="dotArt" onclick="currentSlide(8,'Art')"></span> 
+            </div>
+        </div>    
+
+        <!-- Piano -->
+        <div class="design-container design-card-2 design-white design-round design-margin"><br>
+            <img src="images/Piano/Logo.jpg" alt="Avatar" class="design-left design-margin-right" style="width:50px">
+            <h4>Piano</h4>
+            <hr class="design-clear">
+                <p>I've played piano for ten years now, thought I haven't been actively playing recently. I mainly do classical music, but I used to play a bit of jazz for my high school Jazz Band. <br> I have more pictures of me when I was younger and playing piano, but they're cringe-worthy so I'll just hold on to them for now.</p>
+            <div class="slideshow-container" style="margin-left:auto;margin-right:auto;">
+
+              <div class="mySlidesPiano fade">
+                <div class="numbertext">1 / 2</div>
+                <div class="numbertext">Piano Selfie</div>
+                <img src="images/Piano/PianoSelfie.jpg" class="landscapeImage"> 
+              </div>
+
+              <div class="mySlidesPiano fade" style="margin-left:auto;margin-right:auto;">
+                <div class="numbertext">2 / 2</div>
+                <div class="numbertext">My Piano</div>
+                <img src="images/Piano/Piano.jpg" class="landscapeImage">
+              </div>
+
+          
+
+              <a class="prev" onclick="plusSlides(-1,'Piano')" style="color:white">&#10094;</a>
+              <a class="next" onclick="plusSlides(1,'Piano')" style="color:white">&#10095;</a>
+            </div>
+            <br>
+
+            <div style="text-align:center">
+              <span class="dotPiano" onclick="currentSlide(1,'Piano')"></span> 
+              <span class="dotPiano" onclick="currentSlide(2,'Piano')"></span> 
+            </div>
+        </div>  
+
+        <!-- Video Games -->
+        <div class="design-container design-card-2 design-white design-round design-margin"><br>
+            <img src="images/Games/Logo.jpg" alt="Avatar" class="design-left design-margin-right" style="width:50px">
+            <h4>Games</h4>
+            <hr class="design-clear">
+                <p>I've played video games for a long time now, though I haven't been able to play as much recently due to other responsibilities. <br>That being said, I'm still a big League of Legends (New IGN: Zhoudiac) player and in my childhood I played a lot of console games so I'm pretty good with a controller too.</p>
+            <div class="slideshow-container" style="margin-left:auto;margin-right:auto;">
+              <div class="mySlidesGames fade" style="margin-left:auto;margin-right:auto;">
+                <div class="numbertext">1 / 2</div>
+                <div class="numbertext">My Battle-Hardened Xbox 360</div>
+                <img src="images/Games/XBox.jpg" class="projectImage">
+                
+              </div>
+
+              <div class="mySlidesGames fade">
+                <div class="numbertext">2 / 2</div>
+                <div class="numbertext">League of Legends</div>
+                <img src="images/Games/DiamondSeason6.png" class="landscapeImage"> 
+              </div>
+
+              <a class="prev" onclick="plusSlides(-1,'Games')" style="color:white">&#10094;</a>
+              <a class="next" onclick="plusSlides(1,'Games')" style="color:white">&#10095;</a>
+            </div>
+            <br>
+
+            <div style="text-align:center">
+              <span class="dotGames" onclick="currentSlide(1,'Games')"></span> 
+              <span class="dotGames" onclick="currentSlide(2,'Games')"></span> 
+            </div>
+        </div>  
+
+        <!-- Ski -->
+        <div class="design-container design-card-2 design-white design-round design-margin"><br>
+            <img src="images/Ski/Logo.jpg" alt="Avatar" class="design-left design-margin-right" style="width:50px">
+            <h4>Ski</h4>
+            <hr class="design-clear">
+                <p> Every year around Christmas time I go skiing with my family and other family friends. I really enjoy it, though I'm not the best at it.<br> If you're wondering, I'm probably around intermediate trail level - god forbid I go on a double black diamond by accident one of these days</p>
+            <div class="slideshow-container" style="margin-left:auto;margin-right:auto;">
+              <div class="mySlidesSki fade">
+                <div class="numbertext">1 / 1</div>
+                <div class="numbertext">Picture At Mountain/Trail Top</div>
+                <img src="images/Ski/MountainTop.jpg" class="projectImage rotateNinety"> 
+              </div>
+
+              <div style="height:50px"></div>
+
+              <a class="prev" onclick="plusSlides(-1,'Ski')" style="color:black">&#10094;</a>
+              <a class="next" onclick="plusSlides(1,'Ski')" style="color:black">&#10095;</a>
+            </div>
+            <br>
+
+            <div style="text-align:center">
+              <span class="dotSki" onclick="currentSlide(1,'Ski')"></span> 
+              <span class="dotSki" onclick="currentSlide(2,'Ski')"></span> 
+            </div>
+        </div>  
+
+<!-- End Hobbies & Travel -->
+    </div>
+
     <!-- Begin Personal Projects -->
-    <div id="PersonalProjects">  
-        <div id="ProjectHeader" class="design-container design-card-2 design-white design-round design-margin"><br>
+    <div id="PersonalProjects" style="display:none;margin-top:-15px" >  
+        <div class="design-container design-card-2 design-white design-round design-margin" >
+        <div style="height:20px"></div>
         <img src="images/ProfilePicture.jpg" alt="Avatar" class="design-left design-circle design-margin-right" style="width:60px;margin-top:-10px;">
         <h4>Brian Zhou</h4>
         <hr class="design-clear">
         <p style="margin-bottom:10px">Here are all of my big projects! Most of my other small ones or works in progress are at my Github!<br> That being said, there are quite a few projects below so I've created a small table of contents below organized by language/framework! </p><br>
         There are a bunch of images for each project, so use the arrows in each slideshow to view them all!<br><br>
-        1. Android - (MoodTools)<br>
-        2. Docker - (Sakai Open Source)<br>
-        3. NodeJS - (HackDuke 2016 Project)<br>
+        1. NodeJS - (HackDuke 2016 Project)<br>         
+        2. Java - (Main Programming Language and Project Collection)<br>
+        3. Android - (MoodTools)<br>
         4. HTML/CSS/JS/Jquery - (Summer 2016 Internship Projects)<br>
-        5. Java - (Main Programming Language and Project Collection)<br>
+        5. Docker - (Sakai Open Source)<br>  
         6. Spark/Android/Shell - (Research Topic and Results/Projects)<br>
         <div style="height:20px"></div>
 
         </div>
-
-        <div class="design-container design-card-2 design-white design-round design-margin"><br>
-            <img src="images/MoodTools/android.png" alt="Avatar" class="design-left design-margin-right" style="width:60px;margin-top:-5px">
-            <h4>MoodTools</h4>
-            <hr class="design-clear">
-                <p>MoodTools is a project I've been working on with one of my friends for over 2 years now, and it's essentially a mental health and depression aid tool. <br>It allows you to easily access and find support or resources, create a backup plan, and track your improvement over time (mood monitoring). <br>The inital version is out right now, but we're planning on publishing a big new release in a few months; I've attached a few sneak peek screenshots below!<br>
-                It currently is available on Google Play / Apple Store and has over 600,000 users!</p>
-
-            <div class="slideshow-container" style="margin-left:auto;margin-right:auto;">
-              <div class="mySlidesMood fade" style="margin-left:auto;margin-right:auto;">
-                <div class="numbertext">1 / 4</div>
-                <div class="numbertext">Front Page</div>
-                <img src="images/MoodTools/FrontPage.jpg" class="projectImage" style="margin-top:-40px;">
-                
-              </div>
-
-              <div class="mySlidesMood fade">
-                <div class="numbertext">2 / 4</div>
-                <div class="numbertext">Initial Test</div>
-                <img src="images/MoodTools/Test.jpg" class="projectImage" style="margin-top:-40px;">
-               
-              </div>
-
-              <div class="mySlidesMood fade">
-                <div class="numbertext">3 / 4</div>
-                <div class="numbertext">Safety Plan</div>
-                <img src="images/MoodTools/SafetyPlan.jpg" class="projectImage" style="margin-top:-40px;">
-                
-              </div>
-
-              <div class="mySlidesMood fade">
-                <div class="numbertext">4 / 4</div>
-                <div class="numbertext">Sneak Peek</div>
-                <img src="images/MoodTools/MoodTools.png" class="projectImage" style="margin-top:-40px;">
-                
-              </div>
-
-              <a class="prev" onclick="plusSlides(-1,'Mood')">&#10094;</a>
-              <a class="next" onclick="plusSlides(1,'Mood')">&#10095;</a>
-            </div>
-            <br>
-
-            <div style="text-align:center">
-              <span class="dotMood" onclick="currentSlide(1,'Mood')"></span> 
-              <span class="dotMood" onclick="currentSlide(2,'Mood')"></span> 
-              <span class="dotMood" onclick="currentSlide(3,'Mood')"></span> 
-              <span class="dotMood" onclick="currentSlide(4,'Mood')"></span> 
-            </div>
-        </div>
-
-        <!-- Docker CI -->
-        <div class="design-container design-card-2 design-white design-round design-margin"><br>
-            <img src="images/Docker/DockerLogo.png" alt="Avatar" class="design-left design-margin-right" style="width:60px">
-            <h4>Docker/Shell Project: Open Source Sakai</h4>
-            <hr class="design-clear">
-                <p> I worked with a friend on the Sakai open source project to create a dockerfile that significantly simplified the initial installation procedure. <br> Normally, you have to manually set up and install hundreds of files, while establishing tons of configuration files, but with our docker file/container you can just run it once and let it do all the work for you (without bugs). <br> Also continuously integrated with github so it updates/rebuilds on change.</p>
-
-            <div class="slideshow-container" style="margin-left:auto;margin-right:auto;">
-              <div class="mySlidesDocker fade" style="margin-left:auto;margin-right:auto;">
-                <div class="numbertext">1 / 3</div>
-                <div class="numbertext">Dockerfile</div>
-                <img src="images/Docker/Dockerfile.png" class="landscapeImage">
-                
-              </div>
-
-              <div class="mySlidesDocker fade">
-                <div class="numbertext">2 / 3</div>
-                <div class="numbertext">Continuous Integration</div>
-                <img src="images/Docker/CI.png" class="landscapeImage">
-                
-              </div>
-
-              <div class="mySlidesDocker fade">
-                <div class="numbertext">3 / 3</div>
-                <div class="numbertext">Rebuild Success</div>
-                <img src="images/Docker/Build.png" class="landscapeImage">
-                
-              </div>
-
-              <a class="prev" onclick="plusSlides(-1,'Docker')" style="color:white">&#10094;</a>
-              <a class="next" onclick="plusSlides(1,'Docker')" style="color:white">&#10095;</a>
-            </div>
-            <br>
-
-            <div style="text-align:center">
-              <span class="dotDocker" onclick="currentSlide(1,'Docker')"></span> 
-              <span class="dotDocker" onclick="currentSlide(2,'Docker')"></span> 
-              <span class="dotDocker" onclick="currentSlide(3,'Docker')"></span> 
-            </div>
-        </div>   
 
         <!-- Import Support -->
         <div class="design-container design-card-2 design-white design-round design-margin"><br>
@@ -349,44 +494,6 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
               <span class="dotImpSup" onclick="currentSlide(2,'ImpSup')"></span> 
               <span class="dotImpSup" onclick="currentSlide(3,'ImpSup')"></span> 
               <span class="dotImpSup" onclick="currentSlide(4,'ImpSup')"></span> 
-            </div>
-        </div>   
-
-         <!-- FotoSwipe -->
-        <div class="design-container design-card-2 design-white design-round design-margin"><br>
-            <img src="images/FotoSwipe/Logo.png" alt="Avatar" class="design-left design-margin-right" style="width:100px">
-            <h4>HTML/CSS/Javascript/PHP: FotoSwipe Internship Projects</h4><br>
-            <hr class="design-clear">
-                <p>Internship Summer 2016! Most of the details in what I did backend are in my resume, but I've attached images of all of my front-end projects. I made a real-time web photo gallery, drag and drop file transfer mechanism, along with some other web feature add-ons like the gallery header! </p>
-            <div class="slideshow-container" style="margin-left:auto;margin-right:auto;">
-              <div class="mySlidesFoto fade" style="margin-left:auto;margin-right:auto;">
-                <div class="numbertext">1 / 3</div>
-                <div class="numbertext">Drag and Drop Site</div>
-                <img src="images/FotoSwipe/Up9Shot.png" class="landscapeImage">
-                
-              </div>
-
-              <div class="mySlidesFoto fade">
-                <div class="numbertext">2 / 3</div>
-                <div class="numbertext">Gallery of Monkeys</div>
-                <img src="images/FotoSwipe/Monkeys.png" class="landscapeImage">
-              </div>
-
-              <div class="mySlidesFoto fade">
-                <div class="numbertext">3 / 3</div>
-                <div class="numbertext">Gallery of Me!</div>
-                <img src="images/FotoSwipe/BrianZhou.png" class="landscapeImage">
-              </div>
-
-              <a class="prev" onclick="plusSlides(-1,'Foto')" style="color:white">&#10094;</a>
-              <a class="next" onclick="plusSlides(1,'Foto')" style="color:white">&#10095;</a>
-            </div>
-            <br>
-
-            <div style="text-align:center">
-              <span class="dotFoto" onclick="currentSlide(1,'Foto')"></span> 
-              <span class="dotFoto" onclick="currentSlide(2,'Foto')"></span> 
-              <span class="dotFoto" onclick="currentSlide(3,'Foto')"></span> 
             </div>
         </div>   
 
@@ -445,7 +552,137 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
               <span class="dotJava" onclick="currentSlide(4,'Java')"></span> 
               <span class="dotJava" onclick="currentSlide(5,'Java')"></span> 
             </div>
+        </div>  
+
+         <!-- MoodTools -->        
+        <div class="design-container design-card-2 design-white design-round design-margin"><br>
+            <img src="images/MoodTools/android.png" alt="Avatar" class="design-left design-margin-right" style="width:60px;margin-top:-5px">
+            <h4>MoodTools</h4>
+            <hr class="design-clear">
+                <p>MoodTools is a project I've been working on with one of my friends for over 2 years now, and it's essentially a mental health and depression aid tool. <br>It allows you to easily access and find support or resources, create a backup plan, and track your improvement over time (mood monitoring). <br>The inital version is out right now, but we're planning on publishing a big new release in a few months; I've attached a few sneak peek screenshots below!<br>
+                It currently is available on Google Play / Apple Store and has over 600,000 users!</p>
+
+            <div class="slideshow-container" style="margin-left:auto;margin-right:auto;">
+              <div class="mySlidesMood fade" style="margin-left:auto;margin-right:auto;">
+                <div class="numbertext">1 / 4</div>
+                <div class="numbertext">Front Page</div>
+                <img src="images/MoodTools/FrontPage.jpg" class="projectImage" style="margin-top:-40px;">
+                
+              </div>
+
+              <div class="mySlidesMood fade">
+                <div class="numbertext">2 / 4</div>
+                <div class="numbertext">Initial Test</div>
+                <img src="images/MoodTools/Test.jpg" class="projectImage" style="margin-top:-40px;">
+               
+              </div>
+
+              <div class="mySlidesMood fade">
+                <div class="numbertext">3 / 4</div>
+                <div class="numbertext">Safety Plan</div>
+                <img src="images/MoodTools/SafetyPlan.jpg" class="projectImage" style="margin-top:-40px;">
+                
+              </div>
+
+              <div class="mySlidesMood fade">
+                <div class="numbertext">4 / 4</div>
+                <div class="numbertext">Sneak Peek</div>
+                <img src="images/MoodTools/MoodTools.png" class="projectImage" style="margin-top:-40px;">
+                
+              </div>
+
+              <a class="prev" onclick="plusSlides(-1,'Mood')">&#10094;</a>
+              <a class="next" onclick="plusSlides(1,'Mood')">&#10095;</a>
+            </div>
+            <br>
+
+            <div style="text-align:center">
+              <span class="dotMood" onclick="currentSlide(1,'Mood')"></span> 
+              <span class="dotMood" onclick="currentSlide(2,'Mood')"></span> 
+              <span class="dotMood" onclick="currentSlide(3,'Mood')"></span> 
+              <span class="dotMood" onclick="currentSlide(4,'Mood')"></span> 
+            </div>
+        </div>
+
+
+         <!-- FotoSwipe -->
+        <div class="design-container design-card-2 design-white design-round design-margin"><br>
+            <img src="images/FotoSwipe/Logo.png" alt="Avatar" class="design-left design-margin-right" style="width:100px">
+            <h4>HTML/CSS/Javascript/PHP: FotoSwipe Internship Projects</h4><br>
+            <hr class="design-clear">
+                <p>Internship Summer 2016! Most of the details in what I did backend are in my resume, but I've attached images of all of my front-end projects. I made a real-time web photo gallery, drag and drop file transfer mechanism, along with some other web feature add-ons like the gallery header! </p>
+            <div class="slideshow-container" style="margin-left:auto;margin-right:auto;">
+              <div class="mySlidesFoto fade" style="margin-left:auto;margin-right:auto;">
+                <div class="numbertext">1 / 3</div>
+                <div class="numbertext">Drag and Drop Site</div>
+                <img src="images/FotoSwipe/Up9Shot.png" class="landscapeImage">
+                
+              </div>
+
+              <div class="mySlidesFoto fade">
+                <div class="numbertext">2 / 3</div>
+                <div class="numbertext">Gallery of Monkeys</div>
+                <img src="images/FotoSwipe/Monkeys.png" class="landscapeImage">
+              </div>
+
+              <div class="mySlidesFoto fade">
+                <div class="numbertext">3 / 3</div>
+                <div class="numbertext">Gallery of Me!</div>
+                <img src="images/FotoSwipe/BrianZhou.png" class="landscapeImage">
+              </div>
+
+              <a class="prev" onclick="plusSlides(-1,'Foto')" style="color:white">&#10094;</a>
+              <a class="next" onclick="plusSlides(1,'Foto')" style="color:white">&#10095;</a>
+            </div>
+            <br>
+
+            <div style="text-align:center">
+              <span class="dotFoto" onclick="currentSlide(1,'Foto')"></span> 
+              <span class="dotFoto" onclick="currentSlide(2,'Foto')"></span> 
+              <span class="dotFoto" onclick="currentSlide(3,'Foto')"></span> 
+            </div>
         </div>   
+
+        <!-- Docker CI -->
+        <div class="design-container design-card-2 design-white design-round design-margin"><br>
+            <img src="images/Docker/DockerLogo.png" alt="Avatar" class="design-left design-margin-right" style="width:60px">
+            <h4>Docker/Shell Project: Open Source Sakai</h4>
+            <hr class="design-clear">
+                <p> I worked with a friend on the Sakai open source project to create a dockerfile that significantly simplified the initial installation procedure. <br> Normally, you have to manually set up and install hundreds of files, while establishing tons of configuration files, but with our docker file/container you can just run it once and let it do all the work for you (without bugs). <br> Also continuously integrated with github so it updates/rebuilds on change.</p>
+
+            <div class="slideshow-container" style="margin-left:auto;margin-right:auto;">
+              <div class="mySlidesDocker fade" style="margin-left:auto;margin-right:auto;">
+                <div class="numbertext">1 / 3</div>
+                <div class="numbertext">Dockerfile</div>
+                <img src="images/Docker/Dockerfile.png" class="landscapeImage">
+                
+              </div>
+
+              <div class="mySlidesDocker fade">
+                <div class="numbertext">2 / 3</div>
+                <div class="numbertext">Continuous Integration</div>
+                <img src="images/Docker/CI.png" class="landscapeImage">
+                
+              </div>
+
+              <div class="mySlidesDocker fade">
+                <div class="numbertext">3 / 3</div>
+                <div class="numbertext">Rebuild Success</div>
+                <img src="images/Docker/Build.png" class="landscapeImage">
+                
+              </div>
+
+              <a class="prev" onclick="plusSlides(-1,'Docker')" style="color:white">&#10094;</a>
+              <a class="next" onclick="plusSlides(1,'Docker')" style="color:white">&#10095;</a>
+            </div>
+            <br>
+
+            <div style="text-align:center">
+              <span class="dotDocker" onclick="currentSlide(1,'Docker')"></span> 
+              <span class="dotDocker" onclick="currentSlide(2,'Docker')"></span> 
+              <span class="dotDocker" onclick="currentSlide(3,'Docker')"></span> 
+            </div>
+        </div>    
 
         <!-- Research -->
         <div class="design-container design-card-2 design-white design-round design-margin"><br>
@@ -496,16 +733,36 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
     <div class="design-col m2">
       <div class="design-card-2 design-round design-white design-center">
         <div class="design-container">
-          <p>Upcoming Events:</p>
+          <p>Future Events:</p>
           <img src="images/DukeChapel.jpg" alt="Chapel" style="width:100%;">
-          <p><strong>Holiday</strong></p>
-          <p>Friday 15:00</p>
-          <p><button class="design-btn design-btn-block design-theme-l4">Info</button></p>
+          <p><strong>Duke</strong></p>
+          <p>Janruary 7th</p>
+          <p><button class="design-btn design-btn-block design-theme-l4">Spring Semester</button></p>
         </div>
       </div>
       <br>
-      
+
       <div class="design-card-2 design-round design-white design-center">
+      <div class="design-row-padding">
+         <br>
+           <div class="design-half">
+             <img src="http://www.w3schools.com/w3images/lights.jpg" style="width:100%" class="design-margin-bottom">
+           </div>
+           <div class="design-half">
+             <img src="http://www.w3schools.com/w3images/nature.jpg" style="width:100%" class="design-margin-bottom">
+           </div>
+           <div class="design-half">
+             <img src="http://www.w3schools.com/w3images/mountains.jpg" style="width:100%" class="design-margin-bottom">
+           </div>
+           <div class="design-half">
+             <img src="http://www.w3schools.com/w3images/forest.jpg" style="width:100%" class="design-margin-bottom">
+           </div>
+         </div>
+       </div>
+
+       <br>
+
+        <div class="design-card-2 design-round design-white design-center">
         <div class="design-container">
           <p>Friend Request</p>
           <img src="http://www.w3schools.com/w3images/avatar6.png" alt="Avatar" style="width:50%"><br>
@@ -520,13 +777,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
           </div>
         </div>
       </div>
-      <br>
-      
-      
-      <div class="design-card-2 design-round design-white design-padding-32">
-        <p><i class="fa fa-bug design-xxlarge"></i></p>
-      </div>
-      
+     
     <!-- End Right Column -->
     </div>
     
@@ -539,11 +790,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 
 <!-- Footer -->
 <footer class="design-container design-theme-d3 design-padding-16">
-  <h5>Footer</h5>
 </footer>
 
 <footer class="design-container design-theme-d5">
-Dummy Text I'll add later
 </footer>
  
 <script>
@@ -577,7 +826,12 @@ var slideIndex = {
     ImpSup:0,
     Foto:0,
     Java:0,
-    Spark:0
+    Spark:0,
+    Golf:0,
+    Games:0,
+    Art:0,
+    Piano:0,
+    Ski:0
 };
 
 for (var key in slideIndex) {
@@ -612,8 +866,49 @@ function showSlides(n, key) {
   dots[slideIndex[key]-1].className += " active";
 }
 
-</script>
 
+  //basic map config with custom fills, mercator projection
+      var map = new Datamap({
+        scope: 'world',
+        element: document.getElementById('map'),
+        projection: 'mercator',
+        height: 500,
+        fills: {
+          defaultFill: 'lightgray',
+          done: 'lightgreen',
+          bubble:'green'
+        },
+        
+        data: {
+          USA: {fillKey: 'done' },
+          USA: {fillKey: 'done' },
+          CHN: {fillKey: 'done' },
+          JPN: {fillKey: 'done' },
+          GBR: {fillKey: 'done' },
+          FRA: {fillKey: 'done' },
+          CAN: {fillKey: 'done' }
+        }
+      })
+      
+ 
+       
+      
+       //bubbles, custom popup on hover template
+     map.bubbles([
+       {name: 'Most States! MA,CA,NC,SC,TX,VT,NH ...', latitude: 39.41, longitude: -100, radius: 10, fillKey: 'bubble'},
+        {name: 'Toronto (Ontario)', latitude: 60.41, longitude: -110, radius: 10, fillKey: 'bubble'},
+        {name: 'Paris', latitude: 47, longitude: 2.3, radius: 5, fillKey: 'bubble'},
+        {name: 'London', latitude: 52.51, longitude: -1.4, radius: 5, fillKey: 'bubble'},
+        {name: 'Tokyo', latitude: 37.3, longitude: 139.3, radius: 5, fillKey: 'bubble'},
+        {name: 'Shanghai, Beijing, Anhui, Zhangjiajie', latitude: 34.6, longitude: 103.55, radius: 10, fillKey: 'bubble'}
+
+     ],  {
+       popupTemplate: function(geo, data) {
+         return "<div class='hoverinfo'>" + data.name + "</div>";
+       }
+     });
+
+</script>
 
 </body>
 </html> 

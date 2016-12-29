@@ -22,7 +22,6 @@ window.onload = function(){
         while (node.hasChildNodes()) {
             node.removeChild(node.lastChild);
         }      
-        document.getElementById("postText").value = "";
     }
 
     var calculateAspectRatioFit = function(srcWidth, srcHeight, maxWidth, maxHeight) {
@@ -159,13 +158,45 @@ window.onload = function(){
         $(parentElementID).fadeIn(1000).css('display','block');
     }   
 
+    var currentPageID = "#HomePage";
+
+    var changePage = function(id,callback){
+        $(currentPageID).fadeOut(1000);
+        $(currentPageID).promise().done(function(){
+            if(callback)
+                callback();
+        }); 
+        currentPageID = id;
+    }
+
     $('#clear').click(function(){
         clearSelection();
+        document.getElementById("postText").value = "";
     });
 
     $('#post').click(function() {
         makeNewPost();
         clearSelection();
+        document.getElementById("postText").value = "";
+    });
+
+    //All of the NavBar Click Button stuff
+    $('#homeButton').click(function(){
+        changePage('#HomePage',function(){
+            $('#HomePage').fadeIn(1000).css('display','block');
+        });
+    });
+
+    $('#travelButton').click(function(){
+        changePage('#HobbiesTravel',function(){
+            $('#HobbiesTravel').fadeIn(1000).css('visibility','visible');
+        });
+    });
+
+    $('#projectButton').click(function(){
+        changePage('#PersonalProjects',function(){
+            $('#PersonalProjects').fadeIn(1000).css('display','block');
+        });
     });
 
 

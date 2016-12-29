@@ -9,7 +9,6 @@ const maxHeightOfImage = 200;
 
 function entryPoint(){
     var currentPageID = "#HomePage";
-    asdf
     var changePage = function(id,callback){
         $(currentPageID).fadeOut(1000);
         $(currentPageID).promise().done(function(){

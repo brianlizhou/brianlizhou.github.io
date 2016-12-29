@@ -51,6 +51,29 @@ window.onload = function(){
         });
     });
 
+
+
+    var changePageForce = function(id,callback){
+        $(currentPageID).fadeOut(0);
+        $(currentPageID).promise().done(function(){
+            if(callback)
+                callback();
+        }); 
+        currentPageID = id;
+    }
+
+
+    changePageForce('#HobbiesTravel',function(){
+            $('#HobbiesTravel').css('display','block');
+            $('#HobbiesTravel').fadeIn().css('visibility','visible');
+        });
+
+    changePageForce('#HomePage',function(){
+            $('#HomePage').css('display','block');
+    });
+
+    document.getElementById("initialMapTop").innerHTML = "Places I've Visited! Hover Over For Lists of Cities!";
+
     var currentPostState = {};
     var currentPostID = 0;
 
@@ -207,28 +230,5 @@ window.onload = function(){
         alert("Running this");
 
     }   
-
-    document.getElementById("initialMapTop").innerHTML = "Places I've Visited! Hover Over For Lists of Cities!";
-
-    var changePageForce = function(id,callback){
-        $(currentPageID).fadeOut(0);
-        $(currentPageID).promise().done(function(){
-            if(callback)
-                callback();
-        }); 
-        currentPageID = id;
-    }
-
-
-    changePageForce('#HobbiesTravel',function(){
-            $('#HobbiesTravel').css('display','block');
-            $('#HobbiesTravel').fadeIn().css('visibility','visible');
-        });
-
-    changePageForce('#HomePage',function(){
-            $('#HomePage').css('display','block');
-    });
-
-
-        
+     
 }})();

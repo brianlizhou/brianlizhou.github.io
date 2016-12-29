@@ -1,8 +1,13 @@
 (function() {
-    alert("BS");
+    
 const maxWidthOfImage = 200;
 const maxHeightOfImage = 200;
-window.onload = function(){
+
+ window.onload = function(){
+        window.document.body.onload = entryPoint(); // note removed parentheses
+};
+
+function entryPoint(){
     var currentPageID = "#HomePage";
 
     var changePage = function(id,callback){

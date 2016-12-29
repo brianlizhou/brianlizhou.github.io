@@ -217,9 +217,11 @@ window.onload = function(){
         currentPageID = id;
     }
 
+    alert("Running this");
+
     changePageForce('#HobbiesTravel',function(){
             $('#HobbiesTravel').css('display','block');
-            $('#HobbiesTravel').fadeIn(1000).css('visibility','visible');
+            $('#HobbiesTravel').fadeIn().css('visibility','visible');
         });
 
     changePageForce('#HomePage',function(){

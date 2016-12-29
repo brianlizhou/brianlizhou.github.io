@@ -2,7 +2,7 @@
 const maxWidthOfImage = 200;
 const maxHeightOfImage = 200;
 window.onload = function(){
-
+    alert("BS");
     var currentPageID = "#HomePage";
 
     var changePage = function(id,callback){
@@ -227,8 +227,6 @@ window.onload = function(){
 
         $(parentElementID).insertBefore(elementToAppendToID);
         $(parentElementID).fadeIn(1000).css('display','block');
-        alert("Running this");
-
     }   
      
 }})();

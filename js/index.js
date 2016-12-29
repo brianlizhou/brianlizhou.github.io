@@ -199,6 +199,12 @@ window.onload = function(){
         });
     });
 
+    $('#contactButton').click(function(){
+        changePage('#ContactMe',function(){
+            $('#ContactMe').fadeIn(1000).css('display','block');
+        });
+    });
+
 
         
 }})();

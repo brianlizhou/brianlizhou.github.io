@@ -11,7 +11,9 @@
 html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 </style>
 
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 
 <!-- Map Stuff -->
@@ -31,7 +33,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
   <li id="homeButton"><a href="#" class="design-padding-large design-theme-d4"><i class="fa fa-home design-margin-right"></i>Home</a></li>
   <li id="travelButton" class="design-hide-small"><a href="#" class="design-padding-large design-hover-white" title="News"><i class="fa fa-globe"></i> Travel & Hobbies</a></li>
   <li id="projectButton" class="design-hide-small"><a href="#" class="design-padding-large design-hover-white" title="Account Settings"><i class="fa fa-user"></i> Personal Projects</a></li>
-  <li class="design-hide-small"><a href="#" class="design-padding-large design-hover-white" title="Messages"><i class="fa fa-envelope"></i> Contact Me!</a></li>
+  <li id="contactButton" class="design-hide-small"><a href="#" class="design-padding-large design-hover-white" title="Messages"><i class="fa fa-envelope"></i> Contact Me!</a></li>
   <li class="design-hide-small design-dropdown-hover">
     <a href="#" class="design-padding-large design-hover-white" title="Notifications"><i class="fa fa-bell"></i><span class="design-badge design-right design-small design-green">3</span></a>     
     <div class="design-dropdown-content design-white design-card-4">
@@ -79,17 +81,21 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
         <div class="design-accordion design-white">
           <button onclick="myFunction('Demo1')" class="design-btn-block design-theme-l1 design-left-align"><i class="fa fa-circle-o-notch fa-fw design-margin-right"></i> My Groups</button>
           <div id="Demo1" class="design-accordion-content design-container">
-            <p>Some text..</p>
+            <p>Chronline</p>
+            <p>Duke IEEE</p>
+            <p>HackDuke </p>
+            <p> Big Brothers Big Sisters at Duke </p>
           </div>
           <button onclick="myFunction('Demo2')" class="design-btn-block design-theme-l1 design-left-align"><i class="fa fa-calendar-check-o fa-fw design-margin-right"></i> My Events</button>
           <div id="Demo2" class="design-accordion-content design-container">
-            <p>Some other text..</p>
+            <p>Spring Semester at Duke</p>
+            <p>Google Code Jam</p>
           </div>
           <button onclick="myFunction('Demo3')" class="design-btn-block design-theme-l1 design-left-align"><i class="fa fa-users fa-fw design-margin-right"></i> My Photos</button>
           <div id="Demo3" class="design-accordion-content design-container">
          <div class="design-row-padding">
          <br>
-           <div class="design-half">
+           <!--<div class="design-half">
              <img src="http://www.w3schools.com/w3images/lights.jpg" style="width:100%" class="design-margin-bottom">
            </div>
            <div class="design-half">
@@ -106,7 +112,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
            </div>
            <div class="design-half">
              <img src="http://www.w3schools.com/w3images/fjords.jpg" style="width:100%" class="design-margin-bottom">
-           </div>
+           </div>-->
          </div>
           </div>
         </div>      
@@ -139,8 +145,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
         <span onclick="this.parentElement.style.display='none'" class="design-hover-text-grey design-closebtn">
           <i class="fa fa-remove"></i>
         </span>
-        <p><strong>Hey!</strong></p>
-        <p>People are looking at your profile. Find out who.</p>
+        <p><strong>Future Site Ideas:</strong></p>
+        <p>1. Add in a fixed scroller-helper</p>
+        <p>2. Add in reliable server side for long-term posting </p>
       </div>
     
     <!-- End Left Column -->
@@ -196,19 +203,37 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
         <p>Thanks for stopping by and visiting my site! I keep a catalog of all my travel spots and of my big projects here. <br> If you have time, take a look around using the tabs at the top. <br>I just got the wall working so if you have time, try making a post on the wall!</p>
           <div class="design-row-padding" style="margin:0 -16px">
             <div class="design-half">
-              <img src="images/Languages.jpg" style="width:100%" alt="Northern Lights" class="design-margin-bottom">
+              <img src="images/Languages.jpg" style="width:100%" class="design-margin-bottom">
             </div>
             <div class="design-half">
-              <img src="images/WebHome.jpg" style="width:100%" alt="Nature" class="design-margin-bottom">
+              <img src="images/WebHome.jpg" style="width:100%" class="design-margin-bottom">
           </div>
         </div>
         <button type="button" class="design-btn design-theme-d1 design-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
         <button type="button" class="design-btn design-theme-d2 design-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
     </div>    
-
-
     </div>
     <!-- End Home-->
+
+    <!-- Contact Me -->
+    <div id="ContactMe" style="display:none;margin-top:-15px;">
+    <div class="design-container design-card-2 design-white design-round design-margin"><br>
+        <img src="images/ProfilePicture.jpg" alt="Avatar" class="design-left design-circle design-margin-right" style="width:60px">
+        <span class="design-right design-opacity">1 min</span>
+        <h4>Brian Zhou</h4><br>
+        <hr class="design-clear">
+        <p>Hi! If you want to work on an group project together, message me on facebook (Brian Zhou) or email me at brian.zhou@duke.edu - I'll get back to you ASAP.<br> I'm always looking for new projects to work on but if I'm really busy at the time, I might not be free enough to help. <br>
+        You can find my work using the icons at the right, and can message me/get in direct contact with me through email. Thanks!</p>
+          <div class="design-row-padding" style="margin:0 -16px">
+            <div class="design-half">
+              <img src="images/SeeYouSoon.jpg" style="width:100%" class="design-margin-bottom">
+            </div>
+            <div class="design-half">
+              <img src="images/Thanks.png" style="width:100%" class="design-margin-bottom">
+            </div>
+        </div>
+    </div>    
+    </div>
 
     <!-- Begin Hobbies & Travel -->
     <div id="HobbiesTravel" style="display:block;margin-top:-15px;visibility:hidden">
@@ -746,16 +771,24 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
       <div class="design-row-padding">
          <br>
            <div class="design-half">
-             <img src="http://www.w3schools.com/w3images/lights.jpg" style="width:100%" class="design-margin-bottom">
+           <a href="https://github.com/brianlizhou" title="Github" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Click to visit my Github page">
+             <img src="images/Contact/Github.png" style="width:100%" class="design-margin-bottom">
+             </a>
            </div>
            <div class="design-half">
-             <img src="http://www.w3schools.com/w3images/nature.jpg" style="width:100%" class="design-margin-bottom">
+           <a href="https://www.linkedin.com/in/brian-lihuang-zhou" title="LinkedIn" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="Click to visit my LinkedIn profile page">
+             <img src="images/Contact/LinkedIN.png" style="width:100%" class="design-margin-bottom">
+             </a>
            </div>
            <div class="design-half">
-             <img src="http://www.w3schools.com/w3images/mountains.jpg" style="width:100%" class="design-margin-bottom">
+             <a href="mailto:brian.zhou@duke.edu" title="Email Me!" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="My email address is brian.zhou@duke.edu">
+              <img src="images/Contact/Email.png" style="width:100%" class="design-margin-bottom">
+             </a>
            </div>
            <div class="design-half">
-             <img src="http://www.w3schools.com/w3images/forest.jpg" style="width:100%" class="design-margin-bottom">
+            <a href="https://devpost.com/brianzhou?ref_content=user-portfolio&ref_feature=portfolio&ref_medium=global-nav" title="Devpost" data-placement="bottom" data-toggle="popover" data-trigger="hover" data-content="Click to go to my Devpost page">
+             <img src="images/Contact/Devpost.jpg" style="width:100%" class="design-margin-bottom">
+            </a>
            </div>
          </div>
        </div>
@@ -769,10 +802,10 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
           <span>My Parents</span>
           <div class="design-row design-opacity">
             <div class="design-half">
-              <button class="design-btn design-green design-btn-block design-section" title="Accept"><i class="fa fa-check"></i></button>
+              <button class="design-btn design-green design-btn-block design-section" onclick="this.parentElement.parentElement.parentElement.parentElement.style.display='none'" title="Accept"><i class="fa fa-check"></i></button>
             </div>
             <div class="design-half">
-              <button class="design-btn design-red design-btn-block design-section" title="Decline"><i class="fa fa-remove"></i></button>
+              <button class="design-btn design-red design-btn-block design-section" onclick="this.parentElement.parentElement.parentElement.parentElement.style.display='none'" title="Decline"><i class="fa fa-remove"></i></button>
             </div>
           </div>
         </div>
@@ -796,6 +829,11 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 </footer>
  
 <script>
+
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
+
 // Accordion
 function myFunction(id) {
     var x = document.getElementById(id);
